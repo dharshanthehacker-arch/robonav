@@ -1,9 +1,10 @@
 import heapq
 
 
-def heuristic(a, b):
-    """Manhattan distance between two cells."""
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+def heuristic(a, b, diagonal=False):
+    """Manhattan distance, or Chebyshev distance when diagonal moves are allowed."""
+    dx, dy = abs(a[0] - b[0]), abs(a[1] - b[1])
+    return max(dx, dy) if diagonal else dx + dy
 
 
 def astar(grid, start, goal):
@@ -29,7 +30,7 @@ def astar(grid, start, goal):
             new_g = g_score[current] + 1
             if neighbor not in g_score or new_g < g_score[neighbor]:
                 g_score[neighbor] = new_g
-                f = new_g + heuristic(neighbor, goal)
+                f = new_g + heuristic(neighbor, goal, grid.diagonal)
                 came_from[neighbor] = current
                 heapq.heappush(open_set, (f, neighbor))
 

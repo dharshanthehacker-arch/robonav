@@ -1,7 +1,8 @@
 class Grid:
     """A 2D grid map where some cells are obstacles."""
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, diagonal=False):
+        self.diagonal = diagonal
         self.width = width
         self.height = height
         self.obstacles = set()
@@ -18,6 +19,8 @@ class Grid:
     def neighbors(self, x, y):
         """Return free cells reachable in 4 directions."""
         steps = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        if self.diagonal:
+            steps += [(1, 1), (1, -1), (-1, 1), (-1, -1)]
         result = []
         for dx, dy in steps:
             nx, ny = x + dx, y + dy

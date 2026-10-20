@@ -6,7 +6,7 @@ from src.robot import Robot
 
 
 def build_grid():
-    grid = Grid(10, 10)
+    grid = Grid(10, 10, diagonal=True)
     for y in range(1, 8):
         grid.add_obstacle(4, y)
     for x in range(6, 9):
